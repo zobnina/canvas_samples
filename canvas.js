@@ -14,9 +14,17 @@ ctx.fillRect(150, 150, 100, 100);
 ctx.fillStyle = "#0000FF";
 ctx.fillRect(250, 250, 100, 100);
 
+//Line
 ctx.beginPath();
 ctx.moveTo(50, 300);
 ctx.lineTo(300, 100);
 ctx.lineTo(400, 300);
 ctx.strokeStyle = "#123456";
+ctx.stroke();
+
+//circle
+ctx.beginPath();
+//x,y,radius, startAngle, endAngle
+ctx.arc(300, 300, 30, 0, Math.PI * 2, false);
+ctx.strokeStyle = "#765432";
 ctx.stroke();
