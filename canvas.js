@@ -28,3 +28,13 @@ ctx.beginPath();
 ctx.arc(300, 300, 30, 0, Math.PI * 2, false);
 ctx.strokeStyle = "#765432";
 ctx.stroke();
+
+for (var i = 0; i < 100; i++) {
+  ctx.beginPath();
+  var x = Math.random() * window.innerWidth;
+  var y = Math.random() * window.innerHeight;
+  var r = Math.random() * 50;
+  ctx.arc(x, y, r, 0, Math.PI * 2, false);
+  ctx.strokeStyle = `#F6С6В9`;
+  ctx.stroke();
+}
