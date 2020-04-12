@@ -4,6 +4,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 var ctx = canvas.getContext('2d');
+/*
 ctx.fillStyle = "#FF0000";
 //x, y, width, height
 ctx.fillRect(50, 50, 100, 100);
@@ -38,3 +39,22 @@ for (var i = 0; i < 100; i++) {
   ctx.strokeStyle = `#F6С6В9`;
   ctx.stroke();
 }
+*/
+var x = 200, y = 200;
+var dx = 5, dy = 5, r = 30;
+
+function animate() {
+  requestAnimationFrame(animate);
+
+  ctx.clearRect(0, 0, innerWidth, innerHeight);
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, Math.PI * 2, false);
+  ctx.strokeStyle = '#FF0000';
+  ctx.stroke();
+  if (x + r > innerWidth || x - r < 0) dx = -dx;
+  if (y + r > innerHeight || y - r < 0) dy = -dy;
+  x += dx;
+  y += dy;
+}
+
+animate();
