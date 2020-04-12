@@ -40,21 +40,49 @@ for (var i = 0; i < 100; i++) {
   ctx.stroke();
 }
 */
-var x = 200, y = 200;
-var dx = 5, dy = 5, r = 30;
+function Circle(x = 50, y = 50, dx = 1, dy = 1, r = 30) {
+  this.x = x;
+  this.y = y;
+
+  this.draw = () => {
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2, false);
+    ctx.strokeStyle = '#00FF00';
+    ctx.fillStyle = "#FF0000";
+    ctx.stroke();
+    ctx.fill();
+    if (x + r > innerWidth || x - r < 0) dx = -dx;
+    if (y + r > innerHeight || y - r < 0) dy = -dy;
+    x += dx;
+    y += dy;
+  }
+
+  this.update = () => {
+    if (x + r > innerWidth || x - r < 0) dx = -dx;
+    if (y + r > innerHeight || y - r < 0) dy = -dy;
+    x += dx;
+    y += dy;
+  }
+}
+
+var circles = [];
+
+for (let i = 0; i < 100; i++) {
+  var x = Math.random() * innerWidth, y = Math.random() * innerHeight;
+  var dx = (Math.random() - 0.5) * 2, dy = (Math.random() - 0.5) * 2, r = 30;
+  var circle = new Circle(x, y, dx, dy, r);
+  circle.draw();
+  circles.push(circle);
+}
+
 
 function animate() {
   requestAnimationFrame(animate);
-
   ctx.clearRect(0, 0, innerWidth, innerHeight);
-  ctx.beginPath();
-  ctx.arc(x, y, r, 0, Math.PI * 2, false);
-  ctx.strokeStyle = '#FF0000';
-  ctx.stroke();
-  if (x + r > innerWidth || x - r < 0) dx = -dx;
-  if (y + r > innerHeight || y - r < 0) dy = -dy;
-  x += dx;
-  y += dy;
+  circles.forEach(circle => {
+    circle.draw();
+    circle.update();
+  });
 }
 
 animate();
