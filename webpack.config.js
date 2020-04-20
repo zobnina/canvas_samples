@@ -1,5 +1,5 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-//const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
@@ -13,8 +13,9 @@ const PATHS = {
 module.exports = {
   entry: `${PATHS.src}/index.js`,
   output: {
-    filename: 'main.js',
-    path: path.resolve(__dirname, PATHS.dist),
+    filename: `${PATHS.assets}js/[name].js`,
+    path: PATHS.dist,
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -56,9 +57,13 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: `${PATHS.assets}css/[name].css`,
     }),
-    new CopyWebpackPlugin([
-      { from: './index.html', to: `${PATHS.dist}/index.html`, toType: 'file'},
-    ]),
-    //new HtmlWebpackPlugin()
+    new HtmlWebpackPlugin({  
+      filename: 'index.html',
+      template: './index.html'
+    }), 
+    new HtmlWebpackPlugin({  
+      filename: 'random-moving.html',
+      template: './random-moving.html'
+    })
   ],
 };
