@@ -2,6 +2,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
+const fs = require('fs');
 
 const PATHS = {
   src: path.join(__dirname, './src'),
@@ -9,6 +10,8 @@ const PATHS = {
   assets: 'assets/'
 }
 
+const PAGES_DIR = `${PATHS.src}/html/`;
+const PAGES = fs.readdirSync(PAGES_DIR).filter(fileName => fileName.endsWith('.html'))
 
 module.exports = {
   entry: `${PATHS.src}/index.js`,
@@ -57,13 +60,10 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: `${PATHS.assets}css/[name].css`,
     }),
-    new HtmlWebpackPlugin({  
-      filename: 'index.html',
-      template: './index.html'
-    }), 
-    new HtmlWebpackPlugin({  
-      filename: 'random-moving.html',
-      template: './random-moving.html'
-    })
+
+    ...PAGES.map(page => new HtmlWebpackPlugin({
+      template: `${PAGES_DIR}/${page}`,
+      filename: `./${page}`
+    }))
   ],
 };

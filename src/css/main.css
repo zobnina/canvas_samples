@@ -21,8 +21,14 @@ canvas {
   width: 100vw;
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.welcome_title {
+  color: white;
+  margin: 0 0 50px;
 }
 
 .welcome_nav {
@@ -33,12 +39,14 @@ canvas {
 .welcome_link-wrapper {
   background-color: rgba(0, 0, 0, 0.7);
   display: flex;
+  margin: 10px 0;
 }
 
 .welcome_link {
   text-decoration: none;
   text-transform: uppercase;
   color: white;
+  width: 100%;
   padding: 20px 50px;
 
   background: linear-gradient(45deg, #ff8877 33%, #ffdd66 66%, #3ee3bb);
