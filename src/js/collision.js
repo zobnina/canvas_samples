@@ -1,33 +1,39 @@
 import FilledCircle from './Circle/FilledCircle';
 import { randomIntFromRange, randomFromRange, mouse, colors } from './utility';
 
-var canvas = document.getElementById('gravity');
+let canvas = document.getElementById('collision');
 
 if (typeof (canvas) != 'undefined' && canvas != null) {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  var ctx = canvas.getContext('2d');
+  let ctx = canvas.getContext('2d');
 
-  var ball;
-
-  var circles = [];
+  let circles = [];
 
   function init() {
 
-    for (let i = 0; i < 50; i++) {
-      var r = randomFromRange(2, 40);
+    while (circles.length < 50) {
+      var r = randomFromRange(10, 30);
       var x = randomFromRange(r, innerWidth - r);
-      var y = randomFromRange(r, innerHeight / 2);
+      var y = randomFromRange(r, innerHeight - r);
       var dx = randomFromRange(-0.5, 0.5);
       var dy = randomFromRange(-0.5, 0.5);
       var color = colors[randomIntFromRange(0, colors.length - 1)];
 
       var circle = new FilledCircle(ctx, x, y, dx, dy, r, color);
-      //console.log(circle);
+      var f = true;
 
-      circles.push(circle);
+      circles.forEach(c => {
+        if (c.collide(circle)) {
+          f = false;
+        }
+      });
+
+      if (f) circles.push(circle);
+
     }
+
   }
 
   init();
@@ -37,8 +43,14 @@ if (typeof (canvas) != 'undefined' && canvas != null) {
 
     ctx.clearRect(0, 0, innerWidth, innerHeight);
 
-    circles.forEach(circle => {
-      circle.fall();
+    circles.forEach(c1 => {
+      for (const c2 of circles.filter(c => c !== c1)) {
+        if (c1.collide(c2)) {
+          c1.changeDirection();
+          break;
+        }
+      }
+      c1.move();
     });
   }
 
@@ -50,10 +62,5 @@ if (typeof (canvas) != 'undefined' && canvas != null) {
     circles = [];
     init();
     animate();
-  });
-
-  window.addEventListener('mousemove', function (event) {
-    mouse.x = event.x;
-    mouse.y = event.y;
   });
 }

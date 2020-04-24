@@ -1,4 +1,4 @@
-import InteractiveCircle from './InteractiveCircle';
+import InteractiveCircle from './Circle/InteractiveCircle';
 import { randomIntFromRange, randomFromRange, colors } from './utility';
 
 var canvas = document.getElementById('interactive');

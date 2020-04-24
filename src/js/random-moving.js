@@ -1,4 +1,4 @@
-import StrokedCircle from './StrokedCircle';
+import StrokedCircle from './Circle/StrokedCircle';
 import { randomIntFromRange, randomFromRange, colors } from './utility';
 
 var canvas = document.getElementById('random-moving');
@@ -35,8 +35,8 @@ if (typeof (canvas) != 'undefined' && canvas != null) {
 
     ctx.clearRect(0, 0, innerWidth, innerHeight);
 
-    circles.forEach(circle => {
-      circle.move();
+    circles.forEach(c1 => {
+      c1.move();
     });
   }
 
@@ -45,6 +45,7 @@ if (typeof (canvas) != 'undefined' && canvas != null) {
   window.addEventListener('resize', function () {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    circles = [];
     init();
     animate();
   });
